@@ -6,14 +6,11 @@
 /////// Dibuat oleh :                                           ///////
 /////// Agus Muhajir, S.Kom                                     ///////
 /////// URL 	:                                               ///////
-///////     * http://sisfokol.wordpress.com/                    ///////
-///////     * http://hajirodeon.wordpress.com/                  ///////
-///////     * http://yahoogroup.com/groups/sisfokol/            ///////
-///////     * http://yahoogroup.com/groups/linuxbiasawae/       ///////
+///////     * https://github.com/hajirodeon                     ///////
 /////// E-Mail	:                                               ///////
 ///////     * hajirodeon@yahoo.com                              ///////
 ///////     * hajirodeon@gmail.com                              ///////
-/////// HP/SMS	: 081-829-88-54                                 ///////
+/////// SMS/WA/TELEGRAM	: 081-829-88-54                         ///////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
@@ -56,7 +53,7 @@ $xpassword = "biasawae";
 
 
 //alamat situs ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-$sumber = "http://localhost/karyaku/sisfokol_ujian/";
+$sumber = "http://localhost/sisfokol_ujian/";
 //alamat situs /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

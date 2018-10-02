@@ -6,14 +6,11 @@
 /////// Dibuat oleh :                                           ///////
 /////// Agus Muhajir, S.Kom                                     ///////
 /////// URL 	:                                               ///////
-///////     * http://sisfokol.wordpress.com/                    ///////
-///////     * http://hajirodeon.wordpress.com/                  ///////
-///////     * http://yahoogroup.com/groups/sisfokol/            ///////
-///////     * http://yahoogroup.com/groups/linuxbiasawae/       ///////
+///////     * https://github.com/hajirodeon                     ///////
 /////// E-Mail	:                                               ///////
 ///////     * hajirodeon@yahoo.com                              ///////
 ///////     * hajirodeon@gmail.com                              ///////
-/////// HP/SMS	: 081-829-88-54                                 ///////
+/////// SMS/WA/TELEGRAM	: 081-829-88-54                         ///////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
@@ -326,30 +323,8 @@ echo '<table bgcolor="orange" width="500" border="0" cellspacing="3" cellpadding
 </td>
 
 
-<td width="350">
 
 
-
-   <table width="400" border="0" cellpadding="0" cellspacing="0" bgcolor="orange">
-    <tr>
-      <td align="left">
-	  <font color="gray">
-	  <iframe frameborder="0" width="400" src="http://analisatoko.com/ifr_iklan.php" scrolling="yes" name="frku" height="330"></iframe>
-	  </font>
-	  </td>
-    </tr>
-  </table>
-
-
-
-
-
-
-
-
-
-
-</td>
 </tr>
 </table>
 

@@ -6,14 +6,11 @@
 /////// Dibuat oleh :                                           ///////
 /////// Agus Muhajir, S.Kom                                     ///////
 /////// URL 	:                                               ///////
-///////     * http://sisfokol.wordpress.com/                    ///////
-///////     * http://hajirodeon.wordpress.com/                  ///////
-///////     * http://yahoogroup.com/groups/sisfokol/            ///////
-///////     * http://yahoogroup.com/groups/linuxbiasawae/       ///////
+///////     * https://github.com/hajirodeon                     ///////
 /////// E-Mail	:                                               ///////
 ///////     * hajirodeon@yahoo.com                              ///////
 ///////     * hajirodeon@gmail.com                              ///////
-/////// HP/SMS	: 081-829-88-54                                 ///////
+/////// SMS/WA/TELEGRAM	: 081-829-88-54                         ///////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
@@ -41,25 +38,5 @@ $konten = ParseVal($tpl, array ("judul" => $judul,
 
 //tampilkan
 echo $konten;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-//kill process //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-set_time_limit(600);  //set maksimal loading : 600 detik atau 10 menit
-$result=mysql_query("show processlist");
-while ($row=mysql_fetch_array($result))
-	{
-	$process_id=$row["Id"];
-
-	if (($row["Time"] > 0) OR ($row["Command"]=="Sleep"))
-		{
-		//print $row["Id"];
-		$sql="kill $process_id";
-		mysql_query($sql);
-		}
-	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>

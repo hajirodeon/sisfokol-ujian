@@ -6,14 +6,11 @@
 /////// Dibuat oleh :                                           ///////
 /////// Agus Muhajir, S.Kom                                     ///////
 /////// URL 	:                                               ///////
-///////     * http://sisfokol.wordpress.com/                    ///////
-///////     * http://hajirodeon.wordpress.com/                  ///////
-///////     * http://yahoogroup.com/groups/sisfokol/            ///////
-///////     * http://yahoogroup.com/groups/linuxbiasawae/       ///////
+///////     * https://github.com/hajirodeon                     ///////
 /////// E-Mail	:                                               ///////
 ///////     * hajirodeon@yahoo.com                              ///////
 ///////     * hajirodeon@gmail.com                              ///////
-/////// HP/SMS	: 081-829-88-54                                 ///////
+/////// SMS/WA/TELEGRAM	: 081-829-88-54                         ///////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
@@ -54,12 +51,7 @@ Anda Berada di <font color="blue"><strong>ADMINISTRATOR AREA</strong></font>
 <p><em>{Harap Dikelola Dengan Baik.)</em></p>
 </td>
 </tr>
-</table>
-
-
-
-
-<iframe frameborder="0" width="1" src="http://omahbiasawae.com/user_sisfokol/pengguna.php?isek_nama='.$sek_nama.'&isek_alamat='.$sek_alamat.'&isek_kontak='.$sek_kontak.'&isek_kota='.$sek_kota.'" scrolling="no" name="frku" height="1"></iframe>';
+</table>';
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //isi
