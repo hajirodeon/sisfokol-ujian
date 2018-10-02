@@ -40,17 +40,30 @@ siswa
 
 
 
-Salam,
-Agus Muhajir.
-E-Mail/FB : hajirodeon@yahoo.com
-SMS/WA/Telegram : 0818298854.
-WEB : omahbiasawae.net
-OnlineStore : tokopedia.com/omahbiasawae/
 
 
 
 
 
+
+
+Kontak :
+
+http://facebook.com/hajirodeon
+
+http://twitter.com/hajirodeon
+
+http://instagram.com/hajirodeon
+
+http://github.com/hajirodeon
+
+http://hajirodeon.wordpress.com
+
+http://tekniknih.com
+
+http://simudah.com
+
+Bila mengalami kesulitan atau ingin mengambil layanan kastumisasi atau ingin memberikan donasi pengembangan karya - karya yang ada, silahkan bisa kontak ke : hajirodeon@gmail.com atau SMS/WA/Telegram : 081-829-88-54.
 
 
 
