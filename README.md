@@ -6,7 +6,13 @@ BACA DAHULU YA... ;-D
 ======================
 
 SISFOKOL-UJIAN ini memerlukan webserver seperti XAMPP, yang mendukung PHP dan MySQL.
-minimal menggunakan XAMPP 1.7.7 
+
+hanya mendukung php 5.6 ya.
+
+versi 2.0 sedang disiapkan. versi android juga.
+
+
+
 
 
 Instalasinya sangatlah mudah.
@@ -26,13 +32,20 @@ CONTOH LOGIN
 ==============
 
 admin
-	user/pass : admin
+
+user/pass : admin
+
 
 guru 
-	user/pass : 1
-	
+
+user/pass : 1
+
+
 siswa
-	user/pass : silahkan beri password dahulu dari akses guru, agar siswa bisa login.
+
+user/pass : 
+
+silahkan beri password dahulu dari akses guru, agar siswa bisa login.
 	
 
 
