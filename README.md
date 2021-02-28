@@ -9,7 +9,6 @@ SISFOKOL-UJIAN ini memerlukan webserver seperti XAMPP, yang mendukung PHP dan My
 
 hanya mendukung php 5.6 ya.
 
-versi 2.0 sedang disiapkan. versi android juga.
 
 
 
@@ -72,9 +71,6 @@ http://github.com/hajirodeon
 
 http://hajirodeon.wordpress.com
 
-http://tekniknih.com
-
-http://simudah.com
 
 Bila mengalami kesulitan atau ingin mengambil layanan kastumisasi atau ingin memberikan donasi pengembangan karya - karya yang ada, silahkan bisa kontak ke : hajirodeon@gmail.com atau SMS/WA/Telegram : 081-829-88-54.
 
