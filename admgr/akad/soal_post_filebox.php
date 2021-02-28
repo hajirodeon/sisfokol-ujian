@@ -57,11 +57,11 @@ if ($s == "hapus")
 	$filekd = nosql($_REQUEST['filekd']);
 
 	//query
-	$qcc = mysql_query("SELECT * FROM m_soal_filebox ".
+	$qcc = mysqli_query($koneksi, "SELECT * FROM m_soal_filebox ".
 							"WHERE kd_mapel = '$mapelkd' ".
 							"AND kd_soal = '$soalkd' ".
 							"AND kd = '$filekd'");
-	$rcc = mysql_fetch_assoc($qcc);
+	$rcc = mysqli_fetch_assoc($qcc);
 
 	//hapus file
 	$cc_filex = $rcc['filex'];
@@ -70,7 +70,7 @@ if ($s == "hapus")
 	unlink ($path1);
 
 	//hapus query
-	mysql_query("DELETE FROM m_soal_filebox ".
+	mysqli_query($koneksi, "DELETE FROM m_soal_filebox ".
 					"WHERE kd_mapel = '$mapelkd' ".
 					"AND kd_soal = '$soalkd' ".
 					"AND kd = '$filekd'");
@@ -124,7 +124,7 @@ if ($_POST['btnUPL'])
 				copy($_FILES['filex']['tmp_name'],"../../../filebox/soal/$soalkd/$filex_namex");
 
 				//query
-				mysql_query("INSERT INTO m_soal_filebox(kd, kd_mapel, kd_soal, filex) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO m_soal_filebox(kd, kd_mapel, kd_soal, filex) VALUES ".
 								"('$x', '$mapelkd', '$soalkd', '$filex_namex')");
 
 				//null-kan
@@ -194,12 +194,12 @@ echo '<br>
 <td>';
 
 //koleksi file
-$qfle = mysql_query("SELECT * FROM m_soal_filebox ".
+$qfle = mysqli_query($koneksi, "SELECT * FROM m_soal_filebox ".
 						"WHERE kd_mapel = '$mapelkd' ".
 						"AND kd_soal = '$soalkd' ".
 						"ORDER BY filex ASC");
-$rfle = mysql_fetch_assoc($qfle);
-$tfle = mysql_num_rows($qfle);
+$rfle = mysqli_fetch_assoc($qfle);
+$tfle = mysqli_num_rows($qfle);
 
 //nek gak null
 if ($tfle != 0)
@@ -215,9 +215,9 @@ if ($tfle != 0)
 		echo '  [<a href="'.$ke.'&s=hapus&filekd='.$fle_kd.'"><img src="'.$sumber.'/img/delete.gif" width="16" height="16" border="0"></a>]';
 		echo '<br><br>';
 		}
-	while ($rfle = mysql_fetch_assoc($qfle));
+	while ($rfle = mysqli_fetch_assoc($qfle));
 	}
-while ($rfle = mysql_fetch_assoc($qfle));
+while ($rfle = mysqli_fetch_assoc($qfle));
 
 
 echo '</td>

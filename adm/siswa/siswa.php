@@ -197,11 +197,11 @@ if ($_POST['btnHPS'])
 					"ORDER BY round(nis) ASC";
 	$sqlresult = $sqlcount;
 
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 
 
 
@@ -215,7 +215,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del data
-		mysql_query("DELETE FROM siswa ".
+		mysqli_query($koneksi, "DELETE FROM siswa ".
 						"WHERE kd = '$kd'");
 
 		//nek $kd gak null
@@ -227,7 +227,7 @@ if ($_POST['btnHPS'])
 			unlink ($path1);
 			}
 		}
-	while ($data = mysql_fetch_assoc($result));
+	while ($data = mysqli_fetch_assoc($result));
 
 	//diskonek
 	xfree($qbw);
@@ -281,7 +281,7 @@ if ($_POST['btnSMP'])
 		$s_passx = md5($nis);
 
 		//update
-		mysql_query("UPDATE siswa SET usernamex = '$s_userx', ".
+		mysqli_query($koneksi, "UPDATE siswa SET usernamex = '$s_userx', ".
 							"passwordx = '$s_passx', ".
 							"nis = '$nis', ".
 							"nama = '$nama', ".
@@ -326,10 +326,10 @@ if ($_POST['btnSMP'])
 		else
 			{
 			//cek
-			$qcc = mysql_query("SELECT * FROM siswa ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM siswa ".
 									"WHERE nis = '$nis'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 
 			//nek ada
 			if ($tcc != 0)
@@ -349,7 +349,7 @@ if ($_POST['btnSMP'])
 
 
 				//insert data siswa
-				mysql_query("INSERT INTO siswa(kd, kd_tapel, kd_kelas, usernamex, passwordx, nis, nama, ".
+				mysqli_query($koneksi, "INSERT INTO siswa(kd, kd_tapel, kd_kelas, usernamex, passwordx, nis, nama, ".
 									"alamat, tmp_lahir, tgl_lahir, kelamin, agama, telp, ket, postdate) VALUES ".
 									"('$swkd', '$tapelkd', '$kelkd', '$s_userx', '$s_passx', '$nis', '$nama', ".
 									"'$alamat', '$tmp_lahir', '$tgl_lahir', '$kelamin', '$agama', '$telp', '$ket', '$today')");
@@ -437,19 +437,19 @@ Tahun Pelajaran : ';
 echo "<select name=\"tapel\" onChange=\"MM_jumpMenu('self',this,0)\">";
 
 //terpilih
-$qtpx = mysql_query("SELECT * FROM m_tapel ".
+$qtpx = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 						"WHERE kd = '$tapelkd'");
-$rowtpx = mysql_fetch_assoc($qtpx);
+$rowtpx = mysqli_fetch_assoc($qtpx);
 $tpx_kd = nosql($rowtpx['kd']);
 $tpx_thn1 = nosql($rowtpx['tahun1']);
 $tpx_thn2 = nosql($rowtpx['tahun2']);
 
 echo '<option value="'.$tpx_kd.'">'.$tpx_thn1.'/'.$tpx_thn2.'</option>';
 
-$qtp = mysql_query("SELECT * FROM m_tapel ".
+$qtp = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 						"WHERE kd <> '$tapelkd' ".
 						"ORDER BY tahun1 ASC");
-$rowtp = mysql_fetch_assoc($qtp);
+$rowtp = mysqli_fetch_assoc($qtp);
 
 do
 	{
@@ -459,7 +459,7 @@ do
 
 	echo '<option value="'.$filenya.'?tapelkd='.$tpkd.'">'.$tpth1.'/'.$tpth2.'</option>';
 	}
-while ($rowtp = mysql_fetch_assoc($qtp));
+while ($rowtp = mysqli_fetch_assoc($qtp));
 
 echo '</select>, 
 
@@ -470,19 +470,19 @@ Kelas : ';
 echo "<select name=\"jenis\" onChange=\"MM_jumpMenu('self',this,0)\">";
 
 //terpilih
-$qjnx = mysql_query("SELECT * FROM m_kelas ".
+$qjnx = mysqli_query($koneksi, "SELECT * FROM m_kelas ".
 						"WHERE kd = '$kelkd'");
-$rowjnx = mysql_fetch_assoc($qjnx);
+$rowjnx = mysqli_fetch_assoc($qjnx);
 $jnx_kd = nosql($rowjnx['kd']);
 $jnx_jns = balikin($rowjnx['kelas']);
 
 echo '<option value="'.$jnx_kd.'">'.$jnx_jns.'</option>';
 
 //jenis
-$qjn = mysql_query("SELECT * FROM m_kelas ".
+$qjn = mysqli_query($koneksi, "SELECT * FROM m_kelas ".
 						"ORDER BY no ASC, ".
 						"kelas ASC");
-$rowjn = mysql_fetch_assoc($qjn);
+$rowjn = mysqli_fetch_assoc($qjn);
 
 do
 	{
@@ -491,7 +491,7 @@ do
 
 	echo '<option value="'.$filenya.'?tapelkd='.$tapelkd.'&kelkd='.$jn_kd.'">'.$jn_jns.'</option>';
 	}
-while ($rowjn = mysql_fetch_assoc($qjn));
+while ($rowjn = mysqli_fetch_assoc($qjn));
 
 echo '</select>
 
@@ -539,13 +539,13 @@ else
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//query
-		$qnil = mysql_query("SELECT siswa.*, siswa.kd AS mskd, ".
+		$qnil = mysqli_query($koneksi, "SELECT siswa.*, siswa.kd AS mskd, ".
 								"DATE_FORMAT(siswa.tgl_lahir, '%d') AS lahir_tgl, ".
 								"DATE_FORMAT(siswa.tgl_lahir, '%m') AS lahir_bln, ".
 								"DATE_FORMAT(siswa.tgl_lahir, '%Y') AS lahir_thn ".
 								"FROM siswa ".
 								"WHERE kd = '$swkd'");
-		$rnil = mysql_fetch_assoc($qnil);
+		$rnil = mysqli_fetch_assoc($qnil);
 		$y_nis = nosql($rnil['nis']);
 		$y_nisn = nosql($rnil['nisn']);
 		$y_nama = balikin($rnil['nama']);
@@ -711,12 +711,12 @@ else
 							"ORDER BY nis ASC";
 			$sqlresult = $sqlcount;
 
-			$count = mysql_num_rows(mysql_query($sqlcount));
+			$count = mysqli_num_rows(mysqli_query($sqlcount));
 			$pages = $p->findPages($count, $limit);
-			$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+			$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 			$target = "$filenya?tapelkd=$tapelkd&kelkd=$kelkd&crkd=$crkd&crtipe=$crtipe&kunci=$kunci";
 			$pagelist = $p->pageList($_GET['page'], $pages, $target);
-			$data = mysql_fetch_array($result);
+			$data = mysqli_fetch_array($result);
 			}
 
 		//nama
@@ -738,12 +738,12 @@ else
 							"ORDER BY siswa.nama ASC";
 			$sqlresult = $sqlcount;
 
-			$count = mysql_num_rows(mysql_query($sqlcount));
+			$count = mysqli_num_rows(mysqli_query($sqlcount));
 			$pages = $p->findPages($count, $limit);
-			$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+			$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 			$target = "$filenya?tapelkd=$tapelkd&kelkd=$kelkd&crkd=$crkd&crtipe=$crtipe&kunci=$kunci";
 			$pagelist = $p->pageList($_GET['page'], $pages, $target);
-			$data = mysql_fetch_array($result);
+			$data = mysqli_fetch_array($result);
 			}
 
 		else
@@ -763,12 +763,12 @@ else
 							"ORDER BY siswa.nis ASC";
 			$sqlresult = $sqlcount;
 
-			$count = mysql_num_rows(mysql_query($sqlcount));
+			$count = mysqli_num_rows(mysqli_query($sqlcount));
 			$pages = $p->findPages($count, $limit);
-			$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+			$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 			$target = "$filenya?tapelkd=$tapelkd&kelkd=$kelkd&crkd=$crkd&crtipe=$crtipe&kunci=$kunci";
 			$pagelist = $p->pageList($_GET['page'], $pages, $target);
-			$data = mysql_fetch_array($result);
+			$data = mysqli_fetch_array($result);
 			}
 
 
@@ -876,7 +876,7 @@ else
 					</td>
 					</tr>';
 					}
-				while ($data = mysql_fetch_assoc($result));
+				while ($data = mysqli_fetch_assoc($result));
 
 				echo '</table>
 				<table width="100%" border="0" cellspacing="0" cellpadding="3">

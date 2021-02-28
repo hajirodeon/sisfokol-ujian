@@ -44,29 +44,29 @@ $noregx = nosql($_REQUEST['noregx']);
 
 
 //pel-nya
-$quru = mysql_query("SELECT * FROM guru_mapel ".
+$quru = mysqli_query($koneksi, "SELECT * FROM guru_mapel ".
 						"WHERE kd_tapel = '$tapelkd' ".
 						"AND kd_guru = '$kd1_session' ".
 						"AND kd = '$gkd'");
-$ruru = mysql_fetch_assoc($quru);
-$turu = mysql_num_rows($quru);
+$ruru = mysqli_fetch_assoc($quru);
+$turu = mysqli_num_rows($quru);
 $kd_prog_pddkn = nosql($ruru['kd_mapel']);
 $kd_kelas = nosql($ruru['kd_kelas']);
 
 
 //kelas
-$q2 = mysql_query("SELECT * FROM m_kelas ".
+$q2 = mysqli_query($koneksi, "SELECT * FROM m_kelas ".
 					"WHERE kd = '$kd_kelas'");
-$r2 = mysql_fetch_assoc($q2);
+$r2 = mysqli_fetch_assoc($q2);
 $gkelas = balikin($r2['kelas']);
 
 
 
 
 //mapel
-$q1 = mysql_query("SELECT * FROM m_mapel ".
+$q1 = mysqli_query($koneksi, "SELECT * FROM m_mapel ".
 					"WHERE kd = '$kd_prog_pddkn'");
-$r1 = mysql_fetch_assoc($q1);
+$r1 = mysqli_fetch_assoc($q1);
 $gpel = balikin($r1['mapel']);
 
 
@@ -122,9 +122,9 @@ echo '<form action="'.$filenya.'" method="post" name="formx">
 <td>';
 
 //terpilih
-$qtpx = mysql_query("SELECT * FROM m_tapel ".
+$qtpx = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 						"WHERE kd = '$tapelkd'");
-$rowtpx = mysql_fetch_assoc($qtpx);
+$rowtpx = mysqli_fetch_assoc($qtpx);
 $tpx_thn1 = nosql($rowtpx['tahun1']);
 $tpx_thn2 = nosql($rowtpx['tahun2']);
 
@@ -144,11 +144,11 @@ Mata Pelajaran : <strong>'.$mpx_mapel.'</strong>.
 
 
 //jumlah soal
-$qsol = mysql_query("SELECT * FROM m_soal ".
+$qsol = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 						"WHERE kd_guru_mapel = '$gkd' ".
 						"AND aktif = 'true'");
-$rsol = mysql_fetch_assoc($qsol);
-$tsol = mysql_num_rows($qsol);
+$rsol = mysqli_fetch_assoc($qsol);
+$tsol = mysqli_num_rows($qsol);
 
 
 
@@ -204,12 +204,12 @@ $sqlcount = "SELECT DISTINCT(kd_siswa) AS swkd ".
 				"siswa_soal_nilai.waktu_akhir DESC";
 $sqlresult = $sqlcount;
 
-$count = mysql_num_rows(mysql_query($sqlcount));
+$count = mysqli_num_rows(mysqli_query($sqlcount));
 $pages = $p->findPages($count, $limit);
-$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 $target = "$filenya?mpkd=$mpkd";
 $pagelist = $p->pageList($_GET['page'], $pages, $target);
-$data = mysql_fetch_array($result);
+$data = mysqli_fetch_array($result);
 
 
 do
@@ -218,9 +218,9 @@ do
 
 
 	//query
-	$qdt = mysql_query("SELECT * FROM siswa ".
+	$qdt = mysqli_query($koneksi, "SELECT * FROM siswa ".
 							"WHERE kd = '$wuka_ckd'");
-	$rdt = mysql_fetch_assoc($qdt);
+	$rdt = mysqli_fetch_assoc($qdt);
 	$dt_noregx = nosql($rdt['nis']);
 	$dt_nama = balikin($rdt['nama']);
 
@@ -228,19 +228,19 @@ do
 
 
 	//soal yang dikerjakan
-	$qsyd = mysql_query("SELECT * FROM siswa_soal ".
+	$qsyd = mysqli_query($koneksi, "SELECT * FROM siswa_soal ".
 							"WHERE kd_siswa = '$wuka_ckd' ".
 							"AND kd_guru_mapel = '$gkd' ".
 							"AND jawab <> ''");
-	$rsyd = mysql_fetch_assoc($qsyd);
-	$tsyd = mysql_num_rows($qsyd);
+	$rsyd = mysqli_fetch_assoc($qsyd);
+	$tsyd = mysqli_num_rows($qsyd);
 
 
 	//jml. jawaban BENAR, SALAH, Skor, dan waktu mengerjakan
-	$qwuk = mysql_query("SELECT * FROM siswa_soal_nilai ".
+	$qwuk = mysqli_query($koneksi, "SELECT * FROM siswa_soal_nilai ".
 							"WHERE kd_siswa ='$wuka_ckd' ".
 							"AND kd_guru_mapel = '$gkd'");
-	$rwuk = mysql_fetch_assoc($qwuk);
+	$rwuk = mysqli_fetch_assoc($qwuk);
 	$wuk_jbenar = nosql($rwuk['jml_benar']);
 	$wuk_jsalah = nosql($rwuk['jml_salah']);
 	$wuk_skor = nosql($rwuk['skor']);
@@ -307,9 +307,9 @@ do
 
 	//cari yang sudah ngerjakan, tp belum ngumpulkan...
 	//mapel
-	$qmpx = mysql_query("SELECT * FROM m_mapel ".
+	$qmpx = mysqli_query($koneksi, "SELECT * FROM m_mapel ".
 				"WHERE kd = '$mpkd'");
-	$rowmpx = mysql_fetch_assoc($qmpx);
+	$rowmpx = mysqli_fetch_assoc($qmpx);
 	$mpx_kd = nosql($rowmpx['kd']);
 	$mpx_mapel = balikin($rowmpx['mapel']);
 	$mpx_bobot = nosql($rowmpx['bobot']);
@@ -319,25 +319,25 @@ do
 
 
 	//jml. jawaban BENAR
-	$qju = mysql_query("SELECT siswa_soal.*, m_soal.* ".
+	$qju = mysqli_query($koneksi, "SELECT siswa_soal.*, m_soal.* ".
 				"FROM siswa_soal, m_soal ".
 				"WHERE siswa_soal.kd_soal = m_soal.kd ".
 				"AND siswa_soal.kd_siswa = '$wuka_ckd' ".
 				"AND siswa_soal.kd_guru_mapel = '$gkd' ".
 				"AND siswa_soal.jawab = m_soal.kunci");
-	$rju = mysql_fetch_assoc($qju);
-	$tju = mysql_num_rows($qju);
+	$rju = mysqli_fetch_assoc($qju);
+	$tju = mysqli_num_rows($qju);
 
 
 
 
 	//soal yang dikerjakan
-	$qsyd = mysql_query("SELECT * FROM siswa_soal ".
+	$qsyd = mysqli_query($koneksi, "SELECT * FROM siswa_soal ".
 				"WHERE kd_siswa = '$wuka_ckd' ".
 				"AND kd_guru_mapel = '$gkd' ".
 				"AND jawab <> ''");
-	$rsyd = mysql_fetch_assoc($qsyd);
-	$tsyd = mysql_num_rows($qsyd);
+	$rsyd = mysqli_fetch_assoc($qsyd);
+	$tsyd = mysqli_num_rows($qsyd);
 
 
 
@@ -345,10 +345,10 @@ do
 	$tsalah = round($tsyd - $tju);
 
 	//waktu mulai dan akhir
-	$qjux = mysql_query("SELECT * FROM siswa_soal_nilai ".
+	$qjux = mysqli_query($koneksi, "SELECT * FROM siswa_soal_nilai ".
 							"WHERE kd_siswa = '$wuka_ckd' ".
 							"AND kd_guru_mapel = '$gkd'");
-	$rjux = mysql_fetch_assoc($qjux);
+	$rjux = mysqli_fetch_assoc($qjux);
 	$wk_mulai = $rjux['waktu_mulai'];
 	$wk_akhir = $rjux['waktu_akhir'];
 
@@ -360,7 +360,7 @@ do
 
 
 	//update nilai
-	mysql_query("UPDATE siswa_soal_nilai ".
+	mysqli_query($koneksi, "UPDATE siswa_soal_nilai ".
 					"SET jml_benar = '$tju', ".
 					"jml_salah = '$tsalah', ".
 					"skor = '$tskor' ".
@@ -372,23 +372,23 @@ do
 
 
 	//cek
-	$qcc2 = mysql_query("SELECT * FROM siswa_tertulis ".
+	$qcc2 = mysqli_query($koneksi, "SELECT * FROM siswa_tertulis ".
 						"WHERE kd_siswa = '$wuka_ckd' ".
 						"AND kd_guru_mapel = '$gkd'");
-	$rcc2 = mysql_fetch_assoc($qcc2);
-	$tcc2 = mysql_num_rows($qcc2);
+	$rcc2 = mysqli_fetch_assoc($qcc2);
+	$tcc2 = mysqli_num_rows($qcc2);
 
 	//jika ada
 	if ($tcc2 != 0)
 		{
 		//entry update
-		mysql_query("UPDATE siswa_tertulis SET nilai = '$wuk_nilku' ".
+		mysqli_query($koneksi, "UPDATE siswa_tertulis SET nilai = '$wuk_nilku' ".
 						"WHERE kd_siswa = '$wuka_ckd' ".
 						"AND kd_guru_mapel = '$gkd'");
 		}
 	else
 		{
-		mysql_query("INSERT INTO siswa_tertulis(kd, kd_siswa, kd_guru_mapel, nilai) VALUES ".
+		mysqli_query($koneksi, "INSERT INTO siswa_tertulis(kd, kd_siswa, kd_guru_mapel, nilai) VALUES ".
 				"('$xyz', '$wuka_ckd', '$gkd', '$wuk_nilku')");
 		}
 
@@ -398,10 +398,10 @@ do
 
 	//nilai tertulis ////////////////////////////////////////////////////////////////////////////////////
 	//skor
-	$qcku = mysql_query("SELECT SUM(nilai) AS nilku ".
+	$qcku = mysqli_query($koneksi, "SELECT SUM(nilai) AS nilku ".
 							"FROM siswa_tertulis ".
 							"WHERE kd_siswa = '$wuka_ckd'");
-	$rcku = mysql_fetch_assoc($qcku);
+	$rcku = mysqli_fetch_assoc($qcku);
 	$nil_tertulis = round(nosql($rcku['nilku']),2);
 
 
@@ -419,7 +419,7 @@ do
 	<td align="right"><strong>'.$wuk_nilku.'</strong></td>
 	</tr>';
 	}
-while ($data = mysql_fetch_assoc($result));
+while ($data = mysqli_fetch_assoc($result));
 
 echo '</table>
 <table width="100%" border="0" cellspacing="0" cellpadding="3">

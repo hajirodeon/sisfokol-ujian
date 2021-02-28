@@ -57,16 +57,16 @@ if ($_POST['btnRST'])
 	{
 	//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 	//ketahui tapel aktif
-	$qtp = mysql_query("SELECT * FROM m_tapel ".
+	$qtp = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 				"WHERE status = 'true'");
-	$rtp = mysql_fetch_assoc($qtp);
+	$rtp = mysqli_fetch_assoc($qtp);
 	$tp_tapelkd = nosql($rtp['kd']);
 	$tp_tahun1 = nosql($rtp['tahun1']);
 	$tp_tahun2 = nosql($rtp['tahun2']);
 
 
 	$ketnya = "$judulku [EDIT DATA]";
-	mysql_query("INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
+	mysqli_query($koneksi, "INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
 			"('$x', '$tp_tapelkd', '$kd1_session', '$ketnya', '$today')");
 	//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,7 +104,7 @@ if ($_POST['btnRST'])
 		else
 			{
 			//update
-			mysql_query("UPDATE siswa SET passwordx = '$passbarux' ".
+			mysqli_query($koneksi, "UPDATE siswa SET passwordx = '$passbarux' ".
 							"WHERE kd = '$item'");
 
 			//auto-kembali
@@ -138,7 +138,7 @@ if ($_POST['btnRST'])
 		else
 			{
 			//update
-			mysql_query("UPDATE guru SET passwordx = '$passbarux' ".
+			mysqli_query($koneksi, "UPDATE guru SET passwordx = '$passbarux' ".
 							"WHERE kd = '$item'");
 
 			//auto-kembali
@@ -194,12 +194,12 @@ if ($tpkd == "tp05")
 					"ORDER BY nama ASC";
 	$sqlresult = $sqlcount;
 
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$target = "$filenya?tpkd=$tpkd&tipe=$tipe";
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 
 
 
@@ -242,7 +242,7 @@ if ($tpkd == "tp05")
 			<td>'.$d_nama.'</td>
 			</tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 		}
 
 	echo '</table>
@@ -267,9 +267,9 @@ if ($tpkd == "tp05")
 if ($tpkd == "tp03")
 	{
 	//ketahui tapel aktif
-	$qtp = mysql_query("SELECT * FROM m_tapel ".
+	$qtp = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 							"WHERE status = 'true'");
-	$rtp = mysql_fetch_assoc($qtp);
+	$rtp = mysqli_fetch_assoc($qtp);
 	$tp_tapelkd = nosql($rtp['kd']);
 	$tp_tahun1 = nosql($rtp['tahun1']);
 	$tp_tahun2 = nosql($rtp['tahun2']);
@@ -286,12 +286,12 @@ if ($tpkd == "tp03")
 					"ORDER BY nis ASC";
 	$sqlresult = $sqlcount;
 
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$target = "$filenya?tpkd=$tpkd&tipe=$tipe";
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 
 
 
@@ -335,7 +335,7 @@ if ($tpkd == "tp03")
 			<td>'.$d_nama.'</td>
 			</tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 		}
 
 	echo '</table>

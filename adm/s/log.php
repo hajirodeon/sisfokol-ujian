@@ -45,9 +45,9 @@ if ((empty($page)) OR ($page == "0"))
 
 
 //ketahui tapel aktif
-$qtp = mysql_query("SELECT * FROM m_tapel ".
+$qtp = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 					"WHERE status = 'true'");
-$rtp = mysql_fetch_assoc($qtp);
+$rtp = mysqli_fetch_assoc($qtp);
 $tp_tapelkd = nosql($rtp['kd']);
 $tp_tahun1 = nosql($rtp['tahun1']);
 $tp_tahun2 = nosql($rtp['tahun2']);
@@ -72,11 +72,11 @@ $sqlcount = "SELECT login_log.kd_login AS pkd, ".
 				"ORDER BY postdate DESC";
 $sqlresult = $sqlcount;
 
-$count = mysql_num_rows(mysql_query($sqlcount));
+$count = mysqli_num_rows(mysqli_query($sqlcount));
 $pages = $p->findPages($count, $limit);
-$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 $pagelist = $p->pageList($_GET['page'], $pages, $target);
-$data = mysql_fetch_array($result);
+$data = mysqli_fetch_array($result);
 
 
 //js
@@ -118,9 +118,9 @@ if ($count != 0)
 
 
 		//detail e
-		$qdt = mysql_query("SELECT * FROM siswa ".
+		$qdt = mysqli_query($koneksi, "SELECT * FROM siswa ".
 							"WHERE kd = '$d_kd'");
-		$rdt = mysql_fetch_assoc($qdt);
+		$rdt = mysqli_fetch_assoc($qdt);
 		$dt_username = balikin($rdt['usernamex']);
 		$dt_nama = balikin($rdt['nama']);
 
@@ -131,7 +131,7 @@ if ($count != 0)
 		<td>'.$d_iput.'</td>
     	</tr>';
 		}
-	while ($data = mysql_fetch_assoc($result));
+	while ($data = mysqli_fetch_assoc($result));
 	}
 
 

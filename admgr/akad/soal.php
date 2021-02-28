@@ -39,29 +39,29 @@ $tapelkd = nosql($_REQUEST['tapelkd']);
 $gkd = nosql($_REQUEST['gkd']);
 
 //pel-nya
-$quru = mysql_query("SELECT * FROM guru_mapel ".
+$quru = mysqli_query($koneksi, "SELECT * FROM guru_mapel ".
 						"WHERE kd_tapel = '$tapelkd' ".
 						"AND kd_guru = '$kd1_session' ".
 						"AND kd = '$gkd'");
-$ruru = mysql_fetch_assoc($quru);
-$turu = mysql_num_rows($quru);
+$ruru = mysqli_fetch_assoc($quru);
+$turu = mysqli_num_rows($quru);
 $kd_prog_pddkn = nosql($ruru['kd_mapel']);
 $kd_kelas = nosql($ruru['kd_kelas']);
 
 
 //kelas
-$q2 = mysql_query("SELECT * FROM m_kelas ".
+$q2 = mysqli_query($koneksi, "SELECT * FROM m_kelas ".
 					"WHERE kd = '$kd_kelas'");
-$r2 = mysql_fetch_assoc($q2);
+$r2 = mysqli_fetch_assoc($q2);
 $gkelas = balikin($r2['kelas']);
 
 
 
 
 //mapel
-$q1 = mysql_query("SELECT * FROM m_mapel ".
+$q1 = mysqli_query($koneksi, "SELECT * FROM m_mapel ".
 					"WHERE kd = '$kd_prog_pddkn'");
-$r1 = mysql_fetch_assoc($q1);
+$r1 = mysqli_fetch_assoc($q1);
 $gpel = balikin($r1['mapel']);
 
 
@@ -99,15 +99,15 @@ if ($_POST['btnHPS'])
 
 
 		//del
-		mysql_query("DELETE FROM m_soal ".
+		mysqli_query($koneksi, "DELETE FROM m_soal ".
 						"WHERE kd_guru_mapel = '$gkd' ".
 						"AND kd = '$kd'");
 
 
 		//query
-		$qcc = mysql_query("SELECT * FROM m_soal_filebox ".
+		$qcc = mysqli_query($koneksi, "SELECT * FROM m_soal_filebox ".
 								"WHERE kd_guru_mapel = '$gkd'");
-		$rcc = mysql_fetch_assoc($qcc);
+		$rcc = mysqli_fetch_assoc($qcc);
 
 		do
 			{
@@ -117,10 +117,10 @@ if ($_POST['btnHPS'])
 			chmod($path1,0777);
 			unlink ($path1);
 			}
-		while ($rcc = mysql_fetch_assoc($qcc));
+		while ($rcc = mysqli_fetch_assoc($qcc));
 
 		//hapus query
-		mysql_query("DELETE FROM m_soal_filebox ".
+		mysqli_query($koneksi, "DELETE FROM m_soal_filebox ".
 						"WHERE kd_guru_mapel = '$gkd' ".
 						"AND kd_soal = '$kd'");
 
@@ -164,9 +164,9 @@ echo '<form action="'.$filenya.'" method="post" name="formx">
 
 
 //terpilih
-$qtpx = mysql_query("SELECT * FROM m_tapel ".
+$qtpx = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 						"WHERE kd = '$tapelkd'");
-$rowtpx = mysql_fetch_assoc($qtpx);
+$rowtpx = mysqli_fetch_assoc($qtpx);
 $tpx_thn1 = nosql($rowtpx['tahun1']);
 $tpx_thn2 = nosql($rowtpx['tahun2']);
 
@@ -198,12 +198,12 @@ $sqlcount = "SELECT * FROM m_soal ".
 				"ORDER BY round(no) ASC";
 $sqlresult = $sqlcount;
 
-$count = mysql_num_rows(mysql_query($sqlcount));
+$count = mysqli_num_rows(mysqli_query($sqlcount));
 $pages = $p->findPages($count, $limit);
-$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 $target = "$filenya?gkd=$gkd";
 $pagelist = $p->pageList($_GET['page'], $pages, $target);
-$data = mysql_fetch_array($result);
+$data = mysqli_fetch_array($result);
 
 if ($count != 0)
 	{
@@ -271,7 +271,7 @@ if ($count != 0)
 		<td><strong>'.$d_status.'</strong></td>
 		</tr>';
 		}
-	while ($data = mysql_fetch_assoc($result));
+	while ($data = mysqli_fetch_assoc($result));
 
 
 	echo '</table>

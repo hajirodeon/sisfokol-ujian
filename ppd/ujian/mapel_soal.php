@@ -67,25 +67,25 @@ if ($s == "baru")
 	$_SESSION['x_sesi'] = 0;
 
 	//kosongkan pengerjaan yang telah ada
-	mysql_query("DELETE FROM siswa_soal ".
+	mysqli_query($koneksi, "DELETE FROM siswa_soal ".
 					"WHERE kd_siswa = '$kd4_session' ".
 					"AND kd_guru_mapel = '$gkd'");
 
-	mysql_query("DELETE FROM siswa_soal_nilai ".
+	mysqli_query($koneksi, "DELETE FROM siswa_soal_nilai ".
 					"WHERE kd_siswa = '$kd4_session' ".
 					"AND kd_guru_mapel = '$gkd'");
 
 	//insert baru
-	mysql_query("INSERT INTO siswa_soal_nilai(kd, kd_siswa, kd_guru_mapel, waktu_mulai) VALUES ".
+	mysqli_query($koneksi, "INSERT INTO siswa_soal_nilai(kd, kd_siswa, kd_guru_mapel, waktu_mulai) VALUES ".
 					"('$x', '$kd4_session', '$gkd', '$today')");
 
 	//masukkan soal...
-	$qku = mysql_query("SELECT * FROM m_soal ".
+	$qku = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 				"WHERE kd_guru_mapel = '$gkd' ".
 				"AND aktif = 'true' ".
 				"ORDER BY round(no) ASC");
-	$rku = mysql_fetch_assoc($qku);
-	$tku = mysql_num_rows($qku);
+	$rku = mysqli_fetch_assoc($qku);
+	$tku = mysqli_num_rows($qku);
 
 	do
 		{
@@ -94,10 +94,10 @@ if ($s == "baru")
 		$ku_kd = nosql($rku['kd']);
 
 		//entri
-		mysql_query("INSERT INTO siswa_soal(kd, kd_siswa, kd_guru_mapel, kd_soal) VALUES ".
+		mysqli_query($koneksi, "INSERT INTO siswa_soal(kd, kd_siswa, kd_guru_mapel, kd_soal) VALUES ".
 				"('$xyz', '$kd4_session', '$gkd', '$ku_kd')");
 		}
-	while ($rku = mysql_fetch_assoc($qku));
+	while ($rku = mysqli_fetch_assoc($qku));
 
 
 	//re-direct
@@ -118,17 +118,17 @@ if ($s == "rev")
 
 
 	//cek
-	$qku2 = mysql_query("SELECT * FROM siswa_soal_nilai ".
+	$qku2 = mysqli_query($koneksi, "SELECT * FROM siswa_soal_nilai ".
 				"WHERE kd_siswa = '$kd4_session' ".
 				"AND kd_guru_mapel = '$gkd'");
-	$rku2 = mysql_fetch_assoc($qku2);
-	$tku2 = mysql_num_rows($qku2);
+	$rku2 = mysqli_fetch_assoc($qku2);
+	$tku2 = mysqli_num_rows($qku2);
 
 	//jika belum ada
 	if (empty($tku2))
 		{
 		//insert baru
-		mysql_query("INSERT INTO siswa_soal_nilai(kd, kd_siswa, kd_guru_mapel, waktu_mulai) VALUES ".
+		mysqli_query($koneksi, "INSERT INTO siswa_soal_nilai(kd, kd_siswa, kd_guru_mapel, waktu_mulai) VALUES ".
 				"('$x', '$kd4_session', '$gkd', '$today')");
 		}
 
@@ -137,12 +137,12 @@ if ($s == "rev")
 
 
 	//masukkan soal...
-	$qku = mysql_query("SELECT * FROM m_soal ".
+	$qku = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 				"WHERE kd_guru_mapel = '$gkd' ".
 				"AND aktif = 'true' ".
 				"ORDER BY round(no) ASC");
-	$rku = mysql_fetch_assoc($qku);
-	$tku = mysql_num_rows($qku);
+	$rku = mysqli_fetch_assoc($qku);
+	$tku = mysqli_num_rows($qku);
 
 	do
 		{
@@ -152,23 +152,23 @@ if ($s == "rev")
 
 
 		//cek
-		$qku3 = mysql_query("SELECT * FROM siswa_soal ".
+		$qku3 = mysqli_query($koneksi, "SELECT * FROM siswa_soal ".
 					"WHERE kd_siswa = '$kd4_session' ".
 					"AND kd_guru_mapel = '$gkd' ".
 					"AND kd_soal = '$ku_kd'");
-		$rku3 = mysql_fetch_assoc($qku3);
-		$tku3 = mysql_num_rows($qku3);
+		$rku3 = mysqli_fetch_assoc($qku3);
+		$tku3 = mysqli_num_rows($qku3);
 
 
 		//jika belum ada
 		if (empty($tku3))
 			{
 			//entri
-			mysql_query("INSERT INTO siswa_soal(kd, kd_siswa, kd_guru_mapel, kd_soal) VALUES ".
+			mysqli_query($koneksi, "INSERT INTO siswa_soal(kd, kd_siswa, kd_guru_mapel, kd_soal) VALUES ".
 					"('$xyz', '$kd4_session', '$gkd', '$ku_kd')");
 			}
 		}
-	while ($rku = mysql_fetch_assoc($qku));
+	while ($rku = mysqli_fetch_assoc($qku));
 
 
 
@@ -205,7 +205,7 @@ if ($_POST['btnSLS'])
 	$gkd = nosql($_POST['gkd']);
 
 	//update
-	mysql_query("UPDATE siswa_soal_nilai ".
+	mysqli_query($koneksi, "UPDATE siswa_soal_nilai ".
 					"SET waktu_akhir = '$today' ".
 					"WHERE kd_siswa = '$kd4_session' ".
 					"AND kd_guru_mapel = '$gkd'");
@@ -268,18 +268,18 @@ if ($_POST['btnSMP'])
 		$xjawabx2 = nosql($_POST["$xjawabx"]);
 
 		//cek
-		$qcc = mysql_query("SELECT * FROM siswa_soal ".
+		$qcc = mysqli_query($koneksi, "SELECT * FROM siswa_soal ".
 					"WHERE kd_siswa = '$kd4_session' ".
 					"AND kd_guru_mapel = '$gkd' ".
 					"AND kd_soal = '$xsoalkdx2'");
-		$rcc = mysql_fetch_assoc($qcc);
-		$tcc = mysql_num_rows($qcc);
+		$rcc = mysqli_fetch_assoc($qcc);
+		$tcc = mysqli_num_rows($qcc);
 
 		//nek ada
 		if ($tcc != 0)
 			{
 			//update
-			mysql_query("UPDATE siswa_soal SET jawab = '$xjawabx2' ".
+			mysqli_query($koneksi, "UPDATE siswa_soal SET jawab = '$xjawabx2' ".
 					"WHERE kd_siswa = '$kd4_session' ".
 					"AND kd_guru_mapel = '$gkd' ".
 					"AND kd_soal = '$xsoalkdx2'");
@@ -287,11 +287,11 @@ if ($_POST['btnSMP'])
 		else
 			{
 			//insert
-			mysql_query("INSERT INTO siswa_soal(kd, kd_siswa, kd_guru_mapel, kd_soal, jawab) VALUES".
+			mysqli_query($koneksi, "INSERT INTO siswa_soal(kd, kd_siswa, kd_guru_mapel, kd_soal, jawab) VALUES".
 					"('$xx', '$kd4_session', '$gkd', '$xsoalkdx2', '$xjawabx2')");
 			}
 		}
-	while ($data = mysql_fetch_assoc($result));
+	while ($data = mysqli_fetch_assoc($result));
 
 
 	//re-direct
@@ -305,16 +305,16 @@ if ($_POST['btnSMP'])
 
 
 //mapel terpilih ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$qmpx = mysql_query("SELECT * FROM m_mapel ".
+$qmpx = mysqli_query($koneksi, "SELECT * FROM m_mapel ".
 					"WHERE kd = '$pelkd'");
-$rowmpx = mysql_fetch_assoc($qmpx);
+$rowmpx = mysqli_fetch_assoc($qmpx);
 $mpx_mapel = balikin($rowmpx['mapel']);
 
 
 //pel-nya
-$quru = mysql_query("SELECT * FROM guru_mapel ".
+$quru = mysqli_query($koneksi, "SELECT * FROM guru_mapel ".
 						"WHERE kd = '$gkd'");
-$ruru = mysql_fetch_assoc($quru);
+$ruru = mysqli_fetch_assoc($quru);
 $mpx_kd = nosql($ruru['kd']);
 $mpx_bobot = nosql($ruru['bobot']);
 $mpx_menit2 = nosql($ruru['jml_menit']);
@@ -325,10 +325,10 @@ $mpx_detik = $mpx_menit2 * 60; //detik
 
 
 //m_soal
-$qsol = mysql_query("SELECT * FROM m_soal ".
+$qsol = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 			"WHERE kd_guru_mapel = '$gkd'");
-$rsol = mysql_fetch_assoc($qsol);
-$tsol = mysql_num_rows($qsol);
+$rsol = mysqli_fetch_assoc($qsol);
+$tsol = mysqli_num_rows($qsol);
 
 
 
@@ -390,10 +390,10 @@ if ($nil_dtk_seli == 60)
 
 
 //deteksi jika telah dikerjakan
-$qdte = mysql_query("SELECT * FROM siswa_soal_nilai ".
+$qdte = mysqli_query($koneksi, "SELECT * FROM siswa_soal_nilai ".
 			"WHERE kd_siswa = '$kd4_session' ".
 			"AND kd_guru_mapel = '$gkd'");
-$rdte = mysql_fetch_assoc($qdte);
+$rdte = mysqli_fetch_assoc($qdte);
 $dte_akhir = $rdte['waktu_akhir'];
 
 if ((!empty($_SESSION['x_sesi'])) AND ($dte_akhir != "0000-00-00 00:00:00"))
@@ -466,19 +466,19 @@ $sqlresult = $sqlcount;
 
 
 
-$count = mysql_num_rows(mysql_query($sqlcount));
+$count = mysqli_num_rows(mysqli_query($sqlcount));
 $pages = $p->findPages($count, $limit);
-$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 $target = "$filenya?gkd=$gkd";
 $pagelist = $p->pageList($_GET['page'], $pages, $target);
-$data = mysql_fetch_array($result);
+$data = mysqli_fetch_array($result);
 
 
 //waktu mulai
-$qmul = mysql_query("SELECT * FROM siswa_soal_nilai ".
+$qmul = mysqli_query($koneksi, "SELECT * FROM siswa_soal_nilai ".
 							"WHERE kd_siswa = '$kd4_session' ".
 							"AND kd_guru_mapel = '$gkd'");
-$rmul = mysql_fetch_assoc($qmul);
+$rmul = mysqli_fetch_assoc($qmul);
 $mul_mulai = $rmul['waktu_mulai'];
 
 
@@ -549,19 +549,19 @@ if ($count != 0)
 
 
 		//detal
-		$qdt = mysql_query("SELECT * FROM m_soal ".
+		$qdt = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 					"WHERE kd = '$kd'");
-		$rdt = mysql_fetch_assoc($qdt);
+		$rdt = mysqli_fetch_assoc($qdt);
 		$d_no = nosql($rdt['no']);
 		$d_isi = balikin($rdt['isi']);
 		$d_isi2 = pathasli2($d_isi);
 
 		//yang dijawab
-		$qjbu = mysql_query("SELECT * FROM siswa_soal ".
+		$qjbu = mysqli_query($koneksi, "SELECT * FROM siswa_soal ".
 					"WHERE kd_siswa = '$kd4_session' ".
 					"AND kd_guru_mapel = '$gkd' ".
 					"AND kd_soal = '$kd'");
-		$rjbu= mysql_fetch_assoc($qjbu);
+		$rjbu= mysqli_fetch_assoc($qjbu);
 		$d_jawab = nosql($rjbu['jawab']);
 
 		echo "<tr valign=\"top\" bgcolor=\"$warna\" onmouseover=\"this.bgColor='$warnaover';\" onmouseout=\"this.bgColor='$warna';\">";
@@ -584,7 +584,7 @@ if ($count != 0)
 		</td>
 		</tr>';
 		}
-	while ($data = mysql_fetch_assoc($result));
+	while ($data = mysqli_fetch_assoc($result));
 	}
 
 

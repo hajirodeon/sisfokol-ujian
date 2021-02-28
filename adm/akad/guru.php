@@ -144,11 +144,11 @@ if ($_POST['btnHPS'])
 					"ORDER BY nip ASC";
 	$sqlresult = $sqlcount;
 
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 
 
 	//ambil semua
@@ -162,10 +162,10 @@ if ($_POST['btnHPS'])
 
 
 		//del
-		mysql_query("DELETE FROM guru ".
+		mysqli_query($koneksi, "DELETE FROM guru ".
 						"WHERE kd = '$kd'");
 		}
-	while ($data = mysql_fetch_assoc($result));
+	while ($data = mysqli_fetch_assoc($result));
 
 
 	//diskonek
@@ -213,10 +213,10 @@ if ($_POST['btnSMP1'])
 		else
 			{
 			//cek
-			$qcc = mysql_query("SELECT * FROM guru ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM guru ".
 									"WHERE nip = '$nip'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 	
 			//nek ada
 			if ($tcc != 0)
@@ -234,7 +234,7 @@ if ($_POST['btnSMP1'])
 				$x_passx = md5($nip);
 	
 				//insert
-				mysql_query("INSERT INTO guru(kd, usernamex, passwordx, nip, nama, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO guru(kd, usernamex, passwordx, nip, nama, postdate) VALUES ".
 								"('$kd', '$x_userx', '$x_passx', '$nip', '$nama1', '$today')");
 	
 				//diskonek
@@ -262,7 +262,7 @@ if ($_POST['btnSMP1'])
 		$x_passx = md5($nip);
 
 		//update
-		mysql_query("UPDATE guru SET usernamex = '$x_userx', ".
+		mysqli_query($koneksi, "UPDATE guru SET usernamex = '$x_userx', ".
 						"passwordx = '$x_passx', ".
 						"nip = '$nip', ".
 						"nama = '$nama1' ".
@@ -345,12 +345,12 @@ if (empty($s))
 						"ORDER BY round(nip) ASC";
 		$sqlresult = $sqlcount;
 
-		$count = mysql_num_rows(mysql_query($sqlcount));
+		$count = mysqli_num_rows(mysqli_query($sqlcount));
 		$pages = $p->findPages($count, $limit);
-		$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+		$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 		$target = "$filenya?crkd=$crkd&crtipe=$crtipe&kunci=$kunci";
 		$pagelist = $p->pageList($_GET['page'], $pages, $target);
-		$data = mysql_fetch_array($result);
+		$data = mysqli_fetch_array($result);
 		}
 
 
@@ -366,12 +366,12 @@ if (empty($s))
 						"ORDER BY nama ASC";
 		$sqlresult = $sqlcount;
 
-		$count = mysql_num_rows(mysql_query($sqlcount));
+		$count = mysqli_num_rows(mysqli_query($sqlcount));
 		$pages = $p->findPages($count, $limit);
-		$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+		$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 		$target = "$filenya?crkd=$crkd&crtipe=$crtipe&kunci=$kunci";
 		$pagelist = $p->pageList($_GET['page'], $pages, $target);
-		$data = mysql_fetch_array($result);
+		$data = mysqli_fetch_array($result);
 		}
 
 	else
@@ -384,11 +384,11 @@ if (empty($s))
 						"ORDER BY round(nip) ASC";
 		$sqlresult = $sqlcount;
 
-		$count = mysql_num_rows(mysql_query($sqlcount));
+		$count = mysqli_num_rows(mysqli_query($sqlcount));
 		$pages = $p->findPages($count, $limit);
-		$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+		$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 		$pagelist = $p->pageList($_GET['page'], $pages, $target);
-		$data = mysql_fetch_array($result);
+		$data = mysqli_fetch_array($result);
 		}
 
 	if ($count != 0)
@@ -431,7 +431,7 @@ if (empty($s))
 				$x_userx = $nip;
 				$x_passx = md5($nip);
 
-				mysql_query("UPDATE guru SET usernamex = '$x_userx', ".
+				mysqli_query($koneksi, "UPDATE guru SET usernamex = '$x_userx', ".
 								"passwordx = '$x_passx' ".
 								"WHERE kd = '$kd'");
 				}
@@ -448,7 +448,7 @@ if (empty($s))
 			<td>'.$nama.'</td>
     		</tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 
 		echo '</table>
 		<table width="900" border="0" cellspacing="0" cellpadding="3">
@@ -505,9 +505,9 @@ else
 
 
 	//data query -> datadiri
-	$qnil = mysql_query("SELECT * FROM guru ".
+	$qnil = mysqli_query($koneksi, "SELECT * FROM guru ".
 							"WHERE kd = '$kd'");
-	$rnil = mysql_fetch_assoc($qnil);
+	$rnil = mysqli_fetch_assoc($qnil);
 	$y_nip = nosql($rnil['nip']);
 	$y_nama = balikin($rnil['nama']);
 

@@ -61,9 +61,9 @@ if ($s == "edit")
 	$kdx = nosql($_REQUEST['kd']);
 
 	//query
-	$qx = mysql_query("SELECT * FROM m_tapel ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 				"WHERE kd = '$kdx'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_tahun1 = nosql($rowx['tahun1']);
 	$e_tahun2 = nosql($rowx['tahun2']);
 	$e_status = nosql($rowx['status']);
@@ -109,11 +109,11 @@ if ($_POST['btnSMP'])
 		if (empty($s))
 			{
 			//cek
-			$qcc = mysql_query("SELECT * FROM m_tapel ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 						"WHERE tahun1 = '$tahun1' ".
 						"AND tahun2 = '$tahun2'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 
 			//nek ada
 			if ($tcc != 0)
@@ -132,11 +132,11 @@ if ($_POST['btnSMP'])
 				if ($status == "true")
 					{
 					//netralkan dulu
-					mysql_query("UPDATE m_tapel SET status = 'false'");
+					mysqli_query($koneksi, "UPDATE m_tapel SET status = 'false'");
 					}
 
 				//query
-				mysql_query("INSERT INTO m_tapel(kd, tahun1, tahun2, status) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO m_tapel(kd, tahun1, tahun2, status) VALUES ".
 								"('$x', '$tahun1', '$tahun2', '$status')");
 
 				//diskonek
@@ -155,11 +155,11 @@ if ($_POST['btnSMP'])
 			if ($status == "true")
 				{
 				//netralkan dulu
-				mysql_query("UPDATE m_tapel SET status = 'false'");
+				mysqli_query($koneksi, "UPDATE m_tapel SET status = 'false'");
 				}
 
 			//query
-			mysql_query("UPDATE m_tapel SET tahun1 = '$tahun1', ".
+			mysqli_query($koneksi, "UPDATE m_tapel SET tahun1 = '$tahun1', ".
 							"tahun2 = '$tahun2', ".
 							"status = '$status' ".
 							"WHERE kd = '$kd'");
@@ -191,7 +191,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM m_tapel ".
+		mysqli_query($koneksi, "DELETE FROM m_tapel ".
 						"WHERE kd = '$kd'");
 		}
 
@@ -210,10 +210,10 @@ if ($_POST['btnHPS'])
 ob_start();
 
 //query
-$q = mysql_query("SELECT * FROM m_tapel ".
+$q = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 					"ORDER BY tahun1 ASC");
-$row = mysql_fetch_assoc($q);
-$total = mysql_num_rows($q);
+$row = mysqli_fetch_assoc($q);
+$total = mysqli_num_rows($q);
 
 //js
 require("../../inc/js/checkall.js");
@@ -302,7 +302,7 @@ if ($total != 0)
 		</td>
         </tr>';
 		}
-	while ($row = mysql_fetch_assoc($q));
+	while ($row = mysqli_fetch_assoc($q));
 
 	echo '</table>
 	<table width="400" border="0" cellspacing="0" cellpadding="3">

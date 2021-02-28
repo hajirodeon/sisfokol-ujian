@@ -156,14 +156,14 @@
 			if($database == HAR_ALL_DB)
 			{
 				$sql = "SHOW DATABASES";
-				$this->result = @mysql_query($sql);
-				if(mysql_error()!=="")
+				$this->result = @mysqli_query($sql);
+				if(mysqli_error()!=="")
 				{
-					$this->error="Error : ".mysql_error();
+					$this->error="Error : ".mysqli_error();
 					return false;
 				}
 
-				while($row = mysql_fetch_array($this->result,MYSQL_NUM))
+				while($row = mysqli_fetch_array($this->result,MYSQL_NUM))
 				{
 					$this->database[]=$row[0];
 				}
@@ -180,8 +180,8 @@
 			$returnSql .= "# -------------------------------------------------".$lineEnd;
 
 			$sql = "SELECT VERSION()";
-			$this->result = mysql_query($sql);
-			$row = mysql_fetch_array($this->result,MYSQL_NUM);
+			$this->result = mysqli_query($sql);
+			$row = mysqli_fetch_array($this->result,MYSQL_NUM);
 			$returnSql .= "# Server version ".$row[0].$lineEnd.$lineEnd;
 
 
@@ -191,10 +191,10 @@
 				if(count($this->database)>1)
 					$returnSql.= "USE ".$this->database[$i].";".$lineEnd.$lineEnd;
 
-				$this->result = @mysql_query("USE ".$this->database[$i]);
-				if(mysql_error()!=="")
+				$this->result = @mysqli_query($koneksi, "USE ".$this->database[$i]);
+				if(mysqli_error()!=="")
 				{
-					$this->error="Error : ".mysql_error();
+					$this->error="Error : ".mysqli_error();
 					return false;
 				}
 
@@ -202,14 +202,14 @@
 				if($tables == HAR_ALL_TABLES)
 				{
 					$sql = "SHOW Tables";
-					$this->result = @mysql_query($sql);
-					if(mysql_error()!=="")
+					$this->result = @mysqli_query($sql);
+					if(mysqli_error()!=="")
 					{
-						$this->error="Error : ".mysql_error();
+						$this->error="Error : ".mysqli_error();
 						return false;
 					}
 
-					while($row = mysql_fetch_array($this->result,MYSQL_NUM))
+					while($row = mysqli_fetch_array($this->result,MYSQL_NUM))
 					{
 						$this->tables[]=$row[0];
 					}
@@ -223,13 +223,13 @@
 					if(($options & HAR_NO_STRUCT ) != HAR_NO_STRUCT)
 					{
 						$sql = "SHOW CREATE TABLE ".$this->tables[$j];
-						$this->result = @mysql_query($sql);
-						if(mysql_error()!=="")
+						$this->result = @mysqli_query($sql);
+						if(mysqli_error()!=="")
 						{
-							$this->error="Error : ".mysql_error();
+							$this->error="Error : ".mysqli_error();
 							return false;
 						}
-						$row = mysql_fetch_array($this->result,MYSQL_NUM);
+						$row = mysqli_fetch_array($this->result,MYSQL_NUM);
 
 
 						$returnSql .= " #".$lineEnd;
@@ -254,14 +254,14 @@
 						if(($options & HAR_FULL_SYNTAX == HAR_FULL_SYNTAX))
 						{
 							$sql="SHOW COLUMNS FROM ".$this->tables[$j];
-							$this->result = @mysql_query($sql);
-							if(mysql_error()!=="")
+							$this->result = @mysqli_query($sql);
+							if(mysqli_error()!=="")
 							{
-								$this->error="Error : ".mysql_error();
+								$this->error="Error : ".mysqli_error();
 								return false;
 							}
 							$fields = array();
-							while($row = mysql_fetch_array($this->result,MYSQL_NUM))
+							while($row = mysqli_fetch_array($this->result,MYSQL_NUM))
 							{
 								$fields[]=$row[0];
 							}
@@ -269,16 +269,16 @@
 						}
 
 						$sql="SELECT * FROM ".$this->tables[$j];
-						$this->result = @mysql_query($sql);
-						if(mysql_error()!=="")
+						$this->result = @mysqli_query($sql);
+						if(mysqli_error()!=="")
 						{
-							$this->error="Error : ".mysql_error();
+							$this->error="Error : ".mysqli_error();
 							return false;
 						}
-						while($row = mysql_fetch_array($this->result,MYSQL_NUM))
+						while($row = mysqli_fetch_array($this->result,MYSQL_NUM))
 						{
 							foreach($row as $key => $value)
-								$row[$key] = mysql_escape_string($value);
+								$row[$key] = mysqli_escape_string($value);
 
 							$returnSql .=$temp_sql.' VALUES ("'.@implode('","',$row).'");'.$lineEnd;
 						}
@@ -341,10 +341,10 @@
 		function _connect()
 		{
 			if(!is_resource($this->conn))
-				$this->conn = @mysql_connect($this->dbhost,$this->dbuser,$this->dbpwd);
+				$this->conn = @mysqli_connect($this->dbhost,$this->dbuser,$this->dbpwd);
 			if(!is_resource($this->conn))
 			{
-				$this->error = mysql_error();
+				$this->error = mysqli_error();
 				return false;
 			}
 			return $this->conn;

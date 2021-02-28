@@ -25,11 +25,11 @@ $kd1_session = nosql($_SESSION['kd1_session']);
 $username1_session = nosql($_SESSION['username1_session']);
 $adm_session = nosql($_SESSION['adm_session']);
 
-$qbw = mysql_query("SELECT * FROM adminx ".
+$qbw = mysqli_query($koneksi, "SELECT * FROM adminx ".
 					"WHERE kd = '$kd1_session' ".
 					"AND usernamex = '$username1_session'");
-$rbw = mysql_fetch_assoc($qbw);
-$tbw = mysql_num_rows($qbw);
+$rbw = mysqli_fetch_assoc($qbw);
+$tbw = mysqli_num_rows($qbw);
 
 if (($tbw == 0) OR (empty($kd1_session))
 	OR (empty($username1_session))

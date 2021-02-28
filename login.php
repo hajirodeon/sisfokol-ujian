@@ -41,9 +41,9 @@ $s = nosql($_REQUEST['s']);
 
 
 //ketahui tapel aktif
-$qtp = mysql_query("SELECT * FROM m_tapel ".
+$qtp = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 					"WHERE status = 'true'");
-$rtp = mysql_fetch_assoc($qtp);
+$rtp = mysqli_fetch_assoc($qtp);
 $tp_tapelkd = nosql($rtp['kd']);
 $tp_tahun1 = nosql($rtp['tahun1']);
 $tp_tahun2 = nosql($rtp['tahun2']);
@@ -74,13 +74,13 @@ if ($_POST['btnOK'])
 		if ($aksess == "tp01")
 			{
 			//query
-			$q = mysql_query("SELECT siswa.*, siswa.kd AS sckd, ".
+			$q = mysqli_query($koneksi, "SELECT siswa.*, siswa.kd AS sckd, ".
 								"siswa.nama AS scnama ".
 								"FROM siswa ".
 								"WHERE siswa.usernamex = '$username' ".
 								"AND siswa.passwordx = '$password'");
-			$row = mysql_fetch_assoc($q);
-			$total = mysql_num_rows($q);
+			$row = mysqli_fetch_assoc($q);
+			$total = mysqli_num_rows($q);
 	
 			//cek login
 			if ($total != 0)
@@ -103,7 +103,7 @@ if ($_POST['btnOK'])
 	
 				//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 				$ketnya = "Login $ppd_session : $username4_session";
-				mysql_query("INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
 						"('$x', '$tp_tapelkd', '$kd4_session', '$ketnya', '$today')");
 				//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -127,11 +127,11 @@ if ($_POST['btnOK'])
 		else if ($aksess == "tp02")
 			{
 			//query
-			$q = mysql_query("SELECT * FROM guru ".
+			$q = mysqli_query($koneksi, "SELECT * FROM guru ".
 								"WHERE usernamex = '$username' ".
 								"AND passwordx = '$password'");
-			$row = mysql_fetch_assoc($q);
-			$total = mysql_num_rows($q);
+			$row = mysqli_fetch_assoc($q);
+			$total = mysqli_num_rows($q);
 	
 			//cek login
 			if ($total != 0)
@@ -150,7 +150,7 @@ if ($_POST['btnOK'])
 	
 				//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 				$ketnya = "Login $adm_session : $username1_session";
-				mysql_query("INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
 								"('$x', '$tp_tapelkd', '$kd1_session', '$ketnya', '$today')");
 				//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -174,11 +174,11 @@ if ($_POST['btnOK'])
 		else if ($aksess == "tp03")
 			{
 			//query
-			$q = mysql_query("SELECT * FROM adminx ".
+			$q = mysqli_query($koneksi, "SELECT * FROM adminx ".
 								"WHERE usernamex = '$username' ".
 								"AND passwordx = '$password'");
-			$row = mysql_fetch_assoc($q);
-			$total = mysql_num_rows($q);
+			$row = mysqli_fetch_assoc($q);
+			$total = mysqli_num_rows($q);
 	
 			//cek login
 			if ($total != 0)
@@ -197,7 +197,7 @@ if ($_POST['btnOK'])
 	
 				//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 				$ketnya = "Login $adm_session : $username1_session";
-				mysql_query("INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
 								"('$x', '$tp_tapelkd', '$kd1_session', '$ketnya', '$today')");
 				//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 	

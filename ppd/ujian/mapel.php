@@ -42,9 +42,9 @@ $judulx = $judul;
 
 
 //ketahui tapel aktif
-$qtp = mysql_query("SELECT * FROM m_tapel ".
+$qtp = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 			"WHERE status = 'true'");
-$rtp = mysql_fetch_assoc($qtp);
+$rtp = mysqli_fetch_assoc($qtp);
 $tp_tapelkd = nosql($rtp['kd']);
 $tp_tahun1 = nosql($rtp['tahun1']);
 $tp_tahun2 = nosql($rtp['tahun2']);
@@ -68,11 +68,11 @@ echo '<form action="'.$filenya.'" method="post" name="formx">';
 
 
 //query
-$q = mysql_query("SELECT * FROM m_mapel ".
+$q = mysqli_query($koneksi, "SELECT * FROM m_mapel ".
 					"WHERE kd_tapel = '$tp_tapelkd' ".
 					"ORDER BY no ASC");
-$row = mysql_fetch_assoc($q);
-$total = mysql_num_rows($q);
+$row = mysqli_fetch_assoc($q);
+$total = mysqli_num_rows($q);
 
 echo '<table width="600" border="1" cellspacing="0" cellpadding="3">
 <tr align="center" bgcolor="'.$warnaheader.'">
@@ -109,11 +109,11 @@ if ($total != 0)
 
 
 		//jumlah soal
-		$qku = mysql_query("SELECT * FROM m_soal ".
+		$qku = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 							"WHERE kd_mapel = '$d_kd' ".
 							"AND aktif = 'true'");
-		$rku = mysql_fetch_assoc($qku);
-		$tku = mysql_num_rows($qku);
+		$rku = mysqli_fetch_assoc($qku);
+		$tku = mysqli_num_rows($qku);
 
 
 		echo "<tr valign=\"top\" bgcolor=\"$warna\" onmouseover=\"this.bgColor='$warnaover';\" onmouseout=\"this.bgColor='$warna';\">";
@@ -129,7 +129,7 @@ if ($total != 0)
 		</td>
 		</tr>';
 		}
-	while ($row = mysql_fetch_assoc($q));
+	while ($row = mysqli_fetch_assoc($q));
 	}
 
 echo '</table>';

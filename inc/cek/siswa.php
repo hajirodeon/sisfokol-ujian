@@ -27,11 +27,11 @@ $nama4_session = balikin($_SESSION['nama4_session']);
 $username4_session = nosql($_SESSION['username4_session']);
 $ppd_session = nosql($_SESSION['ppd_session']);
 
-$qbw = mysql_query("SELECT kd FROM siswa ".
+$qbw = mysqli_query($koneksi, "SELECT kd FROM siswa ".
 						"WHERE kd = '$kd4_session' ".
 						"AND usernamex = '$username4_session'");
-$rbw = mysql_fetch_assoc($qbw);
-$tbw = mysql_num_rows($qbw);
+$rbw = mysqli_fetch_assoc($qbw);
+$tbw = mysqli_num_rows($qbw);
 
 if (($tbw == 0) OR (empty($kd4_session))
 	OR (empty($username4_session))

@@ -57,10 +57,10 @@ Anda Berada di <font color="blue"><strong>SISWA</strong></font> : <strong>'.$nam
 
 
 //data ne
-$qdty = mysql_query("SELECT * FROM siswa ".
+$qdty = mysqli_query($koneksi, "SELECT * FROM siswa ".
 						"WHERE kd = '$kd4_session'");
-$rdty = mysql_fetch_assoc($qdty);
-$tdty = mysql_num_rows($qdty);
+$rdty = mysqli_fetch_assoc($qdty);
+$tdty = mysqli_num_rows($qdty);
 
 
 echo '<table width="900" border="1" cellspacing="0" cellpadding="3">
@@ -94,16 +94,16 @@ if ($tdty != 0)
 
 
 		//tapel
-		$qypel = mysql_query("SELECT * FROM m_tapel ".
+		$qypel = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 								"WHERE kd = '$dty_tapelkd'");
-		$rypel = mysql_fetch_assoc($qypel);
+		$rypel = mysqli_fetch_assoc($qypel);
 		$ypel_thn1 = nosql($rypel['tahun1']);
 		$ypel_thn2 = nosql($rypel['tahun2']);
 
 		//kelas
-		$qykel = mysql_query("SELECT * FROM m_kelas ".
+		$qykel = mysqli_query($koneksi, "SELECT * FROM m_kelas ".
 								"WHERE kd = '$dty_kelkd'");
-		$rykel = mysql_fetch_assoc($qykel);
+		$rykel = mysqli_fetch_assoc($qykel);
 		$ykel_kelas = balikin($rykel['kelas']);
 
 
@@ -119,12 +119,12 @@ if ($tdty != 0)
 
 /*
 		//pel-nya
-		$quru = mysql_query("SELECT m_mapel.* ".
+		$quru = mysqli_query($koneksi, "SELECT m_mapel.* ".
 								"FROM m_mapel, guru_mapel ".
 								"WHERE guru_mapel.kd_mapel = m_mapel.kd ".
 								"AND guru_mapel.kd_tapel = '$dty_tapelkd' ".
 								"AND guru_mapel.kd_kelas = '$dty_kelkd'");
-		$ruru = mysql_fetch_assoc($quru);
+		$ruru = mysqli_fetch_assoc($quru);
 
 
 		do
@@ -135,18 +135,18 @@ if ($tdty != 0)
 
 			echo "$qpel <br>";
 			}
-		while ($ruru = mysql_fetch_assoc($quru));
+		while ($ruru = mysqli_fetch_assoc($quru));
 
 */
 
 
 		//pel-nya
-		$quru = mysql_query("SELECT m_mapel.* ".
+		$quru = mysqli_query($koneksi, "SELECT m_mapel.* ".
 								"FROM m_mapel, guru_mapel ".
 								"WHERE guru_mapel.kd_mapel = m_mapel.kd ".
 								"AND guru_mapel.kd_tapel = '$dty_tapelkd' ".
 								"AND guru_mapel.kd_kelas = '$dty_kelkd'");
-		$ruru = mysql_fetch_assoc($quru);
+		$ruru = mysqli_fetch_assoc($quru);
 
 
 		do
@@ -158,23 +158,23 @@ if ($tdty != 0)
 			
 			
 			//pel-nya
-			$quru = mysql_query("SELECT * FROM guru_mapel ".
+			$quru = mysqli_query($koneksi, "SELECT * FROM guru_mapel ".
 									"WHERE kd_tapel = '$dty_tapelkd' ".
 									"AND kd_mapel = '$mpkd' ".
 									"AND kd_kelas = '$dty_kelkd'");
-			$ruru = mysql_fetch_assoc($quru);
-			$turu = mysql_num_rows($quru);		
+			$ruru = mysqli_fetch_assoc($quru);
+			$turu = mysqli_num_rows($quru);		
 			$gkd = nosql($ruru['kd']);
 			$x_bobot = nosql($ruru['bobot']);
 			$x_menit = nosql($ruru['jml_menit']);
 			
 	
 			//jumlah soal
-			$qku = mysql_query("SELECT * FROM m_soal ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 								"WHERE kd_guru_mapel = '$gkd' ".
 								"AND aktif = 'true'");
-			$rku = mysql_fetch_assoc($qku);
-			$tku = mysql_num_rows($qku);
+			$rku = mysqli_fetch_assoc($qku);
+			$tku = mysqli_num_rows($qku);
 
 
 
@@ -188,13 +188,13 @@ if ($tdty != 0)
 			<br>
 			<br>';
 			}
-		while ($ruru = mysql_fetch_assoc($quru));
+		while ($ruru = mysqli_fetch_assoc($quru));
 
 
 		echo '</td>
 		</tr>';
 		}
-	while ($rdty = mysql_fetch_assoc($qdty));
+	while ($rdty = mysqli_fetch_assoc($qdty));
 	}
 
 echo '</table>

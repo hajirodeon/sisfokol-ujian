@@ -42,16 +42,16 @@ if ($_POST['btnSMP'])
 	{
 	//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 	//ketahui tapel aktif
-	$qtp = mysql_query("SELECT * FROM m_tapel ".
+	$qtp = mysqli_query($koneksi, "SELECT * FROM m_tapel ".
 						"WHERE status = 'true'");
-	$rtp = mysql_fetch_assoc($qtp);
+	$rtp = mysqli_fetch_assoc($qtp);
 	$tp_tapelkd = nosql($rtp['kd']);
 	$tp_tahun1 = nosql($rtp['tahun1']);
 	$tp_tahun2 = nosql($rtp['tahun2']);
 
 
 	$ketnya = "$judulku [EDIT DATA]";
-	mysql_query("INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
+	mysqli_query($koneksi, "INSERT INTO login_log(kd, kd_tapel, kd_login, url_inputan, postdate) VALUES ".
 					"('$x', '$tp_tapelkd', '$kd1_session', '$ketnya', '$today')");
 	//entri history ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -84,17 +84,17 @@ if ($_POST['btnSMP'])
 	else
 		{
 		//query
-		$q = mysql_query("SELECT * FROM guru ".
+		$q = mysqli_query($koneksi, "SELECT * FROM guru ".
 							"WHERE usernamex = '$username1_session' ".
 							"AND passwordx = '$passlama'");
-		$row = mysql_fetch_assoc($q);
-		$total = mysql_num_rows($q);
+		$row = mysqli_fetch_assoc($q);
+		$total = mysqli_num_rows($q);
 
 		//cek
 		if ($total != 0)
 			{
 			//perintah SQL
-			mysql_query("UPDATE guru SET passwordx = '$passbaru' ".
+			mysqli_query($koneksi, "UPDATE guru SET passwordx = '$passbaru' ".
 							"WHERE usernamex = '$username1_session'");
 
 			//auto-kembali

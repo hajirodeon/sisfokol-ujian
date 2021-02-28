@@ -61,9 +61,9 @@ if ($s == "edit")
 	$kdx = nosql($_REQUEST['kd']);
 
 	//query
-	$qx = mysql_query("SELECT * FROM m_mapel_jenis ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM m_mapel_jenis ".
 						"WHERE kd = '$kdx'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_no = nosql($rowx['no']);
 	$e_nama = balikin2($rowx['nama']);
 	}
@@ -96,7 +96,7 @@ if ($_POST['btnSMP'])
 		if (empty($s))
 			{
 			//query
-			mysql_query("INSERT INTO m_mapel_jenis(kd, no, nama) VALUES ".
+			mysqli_query($koneksi, "INSERT INTO m_mapel_jenis(kd, no, nama) VALUES ".
 							"('$x', '$no', '$nama')");
 
 			//diskonek
@@ -111,7 +111,7 @@ if ($_POST['btnSMP'])
 		else if ($s == "edit")
 			{		
 			//query
-			mysql_query("UPDATE m_mapel_jenis SET no = '$no', ".
+			mysqli_query($koneksi, "UPDATE m_mapel_jenis SET no = '$no', ".
 					"nama = '$nama' ".
 					"WHERE kd = '$kd'");
 
@@ -142,7 +142,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM m_mapel_jenis ".
+		mysqli_query($koneksi, "DELETE FROM m_mapel_jenis ".
 				"WHERE kd = '$kd'");
 		}
 
@@ -167,11 +167,11 @@ require("../../inc/menu/adm.php");
 
 
 //query
-$q = mysql_query("SELECT * FROM m_mapel_jenis ".
+$q = mysqli_query($koneksi, "SELECT * FROM m_mapel_jenis ".
 					"ORDER BY round(no) ASC, ".
 					"nama ASC");
-$row = mysql_fetch_assoc($q);
-$total = mysql_num_rows($q);
+$row = mysqli_fetch_assoc($q);
+$total = mysqli_num_rows($q);
 
 //js
 require("../../inc/js/checkall.js");
@@ -235,7 +235,7 @@ if ($total != 0)
 		<td>'.$i_nama.'</td>
         	</tr>';
 		}
-	while ($row = mysql_fetch_assoc($q));
+	while ($row = mysqli_fetch_assoc($q));
 
 	echo '</table>
 	<table width="400" border="0" cellspacing="0" cellpadding="3">

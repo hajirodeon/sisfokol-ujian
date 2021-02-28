@@ -39,7 +39,7 @@ $passbarux = md5($passbaru1);
 
 
 //set
-mysql_query("UPDATE siswa SET passwordx = '$passbarux' ".
+mysqli_query($koneksi, "UPDATE siswa SET passwordx = '$passbarux' ".
 				"WHERE kd = '$kd4_session'");
 
 

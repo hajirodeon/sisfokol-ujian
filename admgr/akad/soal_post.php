@@ -108,10 +108,10 @@ if ($s == "edit")
 	$page= nosql($_REQUEST['page']);
 
 	//query soal
-	$qx = mysql_query("SELECT * FROM m_soal ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 						"WHERE kd_guru_mapel = '$gkd' ".
 						"AND kd = '$soalkd'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$x_no = nosql($rowx['no']);
 	$x_isi = balikin($rowx['isi']);
 	$x_kunci = nosql($rowx['kunci']);
@@ -165,11 +165,11 @@ if ($_POST['btnSMP'])
 		if ($s == "baru")
 			{
 			///cek
-			$qcc = mysql_query("SELECT * FROM m_soal ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM m_soal ".
 						"WHERE kd_guru_mapel = '$gkd' ".
 						"AND isi = '$x_isi'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 
 			//nek ada
 			if ($tcc != 0)
@@ -183,7 +183,7 @@ if ($_POST['btnSMP'])
 			else
 				{
 				//insert soal
-				mysql_query("INSERT INTO m_soal(kd, kd_guru_mapel, no, isi, kunci, aktif, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO m_soal(kd, kd_guru_mapel, no, isi, kunci, aktif, postdate) VALUES ".
 								"('$soalkd', '$gkd', '$x_no', '$x_isi', '$x_kunci', '$x_status', '$today')");
 
 
@@ -199,7 +199,7 @@ if ($_POST['btnSMP'])
 		else if ($s == "edit")
 			{
 			//update soal
-			mysql_query("UPDATE m_soal SET no = '$x_no', ".
+			mysqli_query($koneksi, "UPDATE m_soal SET no = '$x_no', ".
 							"isi = '$x_isi', ".
 							"kunci = '$x_kunci', ".
 							"postdate = '$today', ".
@@ -241,9 +241,9 @@ echo '<form action="'.$filenya.'" method="post" name="formx">
 <strong>Mata Pelajaran :</strong> ';
 
 //terpilih
-$qmpx = mysql_query("SELECT * FROM m_mapel ".
+$qmpx = mysqli_query($koneksi, "SELECT * FROM m_mapel ".
 						"WHERE kd = '$mpkd'");
-$rowmpx = mysql_fetch_assoc($qmpx);
+$rowmpx = mysqli_fetch_assoc($qmpx);
 $mpx_kd = nosql($rowmpx['kd']);
 $mpx_mapel = balikin($rowmpx['mapel']);
 
